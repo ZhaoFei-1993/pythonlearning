@@ -20,19 +20,24 @@ def main():
         return
 
     amount_wei = Web3.toWei(amount, 'ether')
-    amount_bytes = Web3.toBytes(amount_wei)
-    amount_hex = Web3.toHex(amount_bytes)
+    print("wei amount=%s ." % amount_wei)
+    # amount_bytes = Web3.toBytes(amount_wei)
+    # amount_hex = Web3.toHex(amount_bytes)
     txn_params = {
         'from': check_sum_from_address,
         'to': check_sum_to_address,
-        'value': amount_hex,
+        'value': amount_wei,
         'gas': 21000,
         'gasPrice': ws.eth.gasPrice,
     }
+    print(txn_params)
+
     txn_hash = ws.personal.sendTransaction(txn_params, pass_phrase)
+    # txn_hash 类型是 class 'hexbytes.main.HexBytes'
     receipt = ws.eth.waitForTransactionReceipt(txn_hash, 360)
     print("Transaction is successfully submitted! The receipt is : ")
     print("transaction hash : %s. and status is : %s" % (txn_hash, receipt['status']))
+    print(receipt)
     # print(txn_params)
 
 
